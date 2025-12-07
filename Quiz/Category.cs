@@ -10,43 +10,88 @@ using System;
 using System.Collections.Generic;
 
 namespace QuizApplication
+
+
+
 {
+
+
     public class Category
     {
-        public int CategoryID { get; set; }
+        private static int nextCategoryID = 1;
 
-        public string CategoryName { get; set; }
+        // Private fields
+        private int categoryID;
+        private string categoryName;
+        private string categoryDescription;
 
-        public List<Quiz> QuizList { get; set; }
-
-        public Category()
+        // Constructor
+        public Category(string name, string description)
         {
-            CategoryID = 0;
-            CategoryName = "";
-            QuizList = new List<Quiz>();
+            categoryID = nextCategoryID++;
+            categoryName = name;
+            categoryDescription = description;
         }
 
-        public Category(int id, string name)
+        // Constructor with specific ID (for loading from file)
+        public Category(int id, string name, string description)
         {
-            CategoryID = id;
-            CategoryName = name;
-            QuizList = new List<Quiz>();
+            categoryID = id;
+            categoryName = name;
+            categoryDescription = description;
+
+            if (id >= nextCategoryID)
+            {
+                nextCategoryID = id + 1;
+            }
         }
 
-        public void DisplayList()
+        // Getter methods
+        public int GetCategoryID()
         {
-            Console.WriteLine("Category: " + CategoryName);
+            return categoryID;
+        }
 
-            if (QuizList.Count == 0)
-            {
-                Console.WriteLine("   No quizzes in this category.");
-                return;
-            }
+        public string GetCategoryName()
+        {
+            return categoryName;
+        }
 
-            foreach (Quiz q in QuizList)
-            {
-                Console.WriteLine("   - " + q.QuizName);
-            }
+        public string GetCategoryDescription()
+        {
+            return categoryDescription;
+        }
+
+        // Setter methods
+        public void SetCategoryName(string name)
+        {
+            categoryName = name;
+        }
+
+        public void SetCategoryDescription(string description)
+        {
+            categoryDescription = description;
+        }
+
+        // Display method
+        public void DisplayCategory()
+        {
+            Console.WriteLine("Category ID: " + categoryID);
+            Console.WriteLine("Name: " + categoryName);
+            Console.WriteLine("Description: " + categoryDescription);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

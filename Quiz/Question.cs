@@ -6,93 +6,121 @@ using System.Threading.Tasks;
 
 namespace QuizApplication
 {
+
+
     public class Question
-
-
-
     {
+        private static int nextQuestionID = 1;
 
-
+        // Private fields
         private int questionID;
         private string questionText;
-        private List<string> options;
-        private string correctAnswer;
+        private List<string> questionOptions;
+        private string questionCorrectAnswer;
+        private string questionDifficultyLevel;
 
-        // ===== PROPERTIES =====
-        public int QuestionID
+        // Constructor
+        public Question(string text, List<string> options, string correctAnswer, string difficultyLevel)
         {
-            get { return questionID; }
-            set { questionID = value; }
+            questionID = nextQuestionID++;
+            questionText = text;
+            questionOptions = options;
+            questionCorrectAnswer = correctAnswer;
+            questionDifficultyLevel = difficultyLevel;
         }
 
-        public string QuestionText
-        {
-            get { return questionText; }
-            set { questionText = value; }
-        }
-
-        public List<string> Options
-        {
-            get { return options; }
-            set { options = value; }
-        }
-
-        public string CorrectAnswer
-        {
-            get { return correctAnswer; }
-            set { correctAnswer = value; }
-        }
-
-        // ===== DEFAULT CONSTRUCTOR =====
-        public Question()
-        {
-            questionID = 0;
-            questionText = "";
-            options = new List<string>();
-            correctAnswer = "";
-        }
-
-        // ===== CUSTOM CONSTRUCTOR =====
-        public Question(int id, string text, List<string> opts, string answer)
+        // Constructor with specific ID
+        public Question(int id, string text, List<string> options, string correctAnswer, string difficultyLevel)
         {
             questionID = id;
             questionText = text;
-            options = opts;
-            correctAnswer = answer;
-        }
+            questionOptions = options;
+            questionCorrectAnswer = correctAnswer;
+            questionDifficultyLevel = difficultyLevel;
 
-        // ===== METHODS =====
-
-        public void ShowQuestion()
-        {
-            Console.WriteLine(questionText);
-            for (int i = 0; i < options.Count; i++)
+            if (id >= nextQuestionID)
             {
-                Console.WriteLine((i + 1) + ") " + options[i]);
+                nextQuestionID = id + 1;
             }
         }
 
-        public bool CheckAnswer(string userAnswer)
+        // Getter methods
+        public int GetQuestionID()
         {
-            return userAnswer.Trim().Equals(correctAnswer.Trim(), StringComparison.OrdinalIgnoreCase);
+            return questionID;
         }
 
+        public string GetQuestionText()
+        {
+            return questionText;
+        }
+
+        public List<string> GetQuestionOptions()
+        {
+            return questionOptions;
+        }
+
+        public string GetQuestionCorrectAnswer()
+        {
+            return questionCorrectAnswer;
+        }
+
+        public string GetQuestionDifficultyLevel()
+        {
+            return questionDifficultyLevel;
+        }
+
+        // Setter methods
+        public void SetQuestionText(string text)
+        {
+            questionText = text;
+        }
+
+        public void SetQuestionOptions(List<string> options)
+        {
+            questionOptions = options;
+        }
+
+        public void SetQuestionCorrectAnswer(string correctAnswer)
+        {
+            questionCorrectAnswer = correctAnswer;
+        }
+
+        public void SetQuestionDifficultyLevel(string difficultyLevel)
+        {
+            questionDifficultyLevel = difficultyLevel;
+        }
+
+        // Display method
         public void DisplayQuestion()
         {
-            Console.WriteLine("Q" + questionID + ": " + questionText);
+            Console.WriteLine("\nQuestion " + questionID + ": " + questionText);
+            Console.WriteLine("Difficulty: " + questionDifficultyLevel);
+
+            for (int i = 0; i < questionOptions.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + questionOptions[i]);
+            }
         }
 
-        public void UpdateQuestion(string newText)
+        // Check answer method
+        public bool CheckAnswer(string answer)
         {
-            questionText = newText;
-            Console.WriteLine("Question updated.");
-        }
-
-        public void DeleteQuestion()
-        {
-            Console.WriteLine("Question " + questionID + " deleted.");
+            if (answer == questionCorrectAnswer)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
+
+
+
+
+
 
 
 }

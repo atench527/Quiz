@@ -5,145 +5,125 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace QuizApplication
+
+
+
 {
+
     public class User
-
-
-
-
     {
-        private int userID;
+        private static int nextUserID = 1;
+
+        // Private fields
+        private int id;
         private string username;
         private string password;
         private string email;
         private string role;
-        private bool isAdmin;
 
-
-
-
-        // some properties will need to be accessed from other classes
-        // so we will now add some properties
-
-
-        public int UserID
-
+        // Constructor
+        public User(string userName, string userPassword, string userEmail, string userRole)
         {
-            get { return userID; }
-            set { userID = value; }
-        }
-
-
-        public string UserName
-
-        {
-            get { return username; }
-            set { username = value; }
-        }
-
-
-        public string Password
-
-        {
-            get { return password;}
-            set { password = value;}
-
-        }
-
-
-        public string Email
-
-        {
-            get { return email;}
-            set { email = value;}
-        }
-
-        public string Role
-
-        {
-            get { return role;}
-            set { role = value;}
-        }
-
-
-
-        public bool IsAdmin
-
-        {
-            get { return isAdmin;} 
-            set { isAdmin = value;}
-        }
-
-        // we will now create our own default constructor and not the default c# will give us
-
-
-        public User()
-
-        {
-            userID = 0;
-            username = "";
-            password = "";
-            email = "";
-            role = "student";
-            isAdmin = false;
-        }
-
-
-
-        // after creating our defauly constructor we will now create a custom one
-
-
-        public User(int id, string name, string pwd, string mail, string userRole, bool adminStatus)
-
-
-        {
-            userID = id;
-            username = name;
-            password = pwd;
-            email = mail;
+            id = nextUserID++;
+            username = userName;
+            password = userPassword;
+            email = userEmail;
             role = userRole;
-            isAdmin = adminStatus;
         }
 
-
-        // we will now add methods
-
-        public void UpdateProfile(string newEmail)
-
+        // Constructor with specific ID
+        public User(int userId, string userName, string userPassword, string userEmail, string userRole)
         {
-            email = newEmail;
-            Console.WriteLine("Profile updated successfully.");
+            id = userId;
+            username = userName;
+            password = userPassword;
+            email = userEmail;
+            role = userRole;
+
+            if (userId >= nextUserID)
+            {
+                nextUserID = userId + 1;
+            }
         }
 
-            
-        public void logout ()
-
+        // Getter methods
+        public int GetID()
         {
-            Console.WriteLine(username + "has logged out.");
+            return id;
         }
 
-
-        public virtual void DeleteUser()
-
+        public string GetUsername()
         {
-            Console.WriteLine("User" + username + "deleted");
+            return username;
         }
 
+        public string GetPassword()
+        {
+            return password;
+        }
 
+        public string GetEmail()
+        {
+            return email;
+        }
 
+        public string GetRole()
+        {
+            return role;
+        }
 
+        // Setter methods
+        public void SetUsername(string userName)
+        {
+            username = userName;
+        }
 
+        public void SetPassword(string userPassword)
+        {
+            password = userPassword;
+        }
 
+        public void SetEmail(string userEmail)
+        {
+            email = userEmail;
+        }
 
+        public void SetRole(string userRole)
+        {
+            role = userRole;
+        }
 
+        // Verify credentials method
+        public bool VerifyCredentials(string userName, string userPassword)
+        {
+            if (username == userName && password == userPassword)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-
-
+        // Display method
+        public void DisplayUserInfo()
+        {
+            Console.WriteLine("User ID: " + id);
+            Console.WriteLine("Username: " + username);
+            Console.WriteLine("Email: " + email);
+            Console.WriteLine("Role: " + role);
+        }
     }
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
