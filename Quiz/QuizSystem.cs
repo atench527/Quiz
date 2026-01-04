@@ -920,7 +920,7 @@ namespace QuizApplication
                 "Easy"
             );
 
-            var q2 = new Question(
+            var q2 = new Question(  
                 "Which planet is known as the Red Planet?",
                 new List<string> { "Mars", "Venus", "Jupiter", "Mercury" },
                 "1",
